@@ -4,8 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.nanodegree.diego.popularmovies.adapter.MoviePostersListAdapter;
+import com.nanodegree.diego.popularmovies.tasks.LoadMoviesTask;
 
 public class MoviePostersActivity extends AppCompatActivity {
 
@@ -24,12 +27,30 @@ public class MoviePostersActivity extends AppCompatActivity {
      */
     private MoviePostersListAdapter mMoviePostersAdapter;
 
+    /**
+     * Progressive bar indicator.
+     */
+    private ProgressBar mProgressiveBar;
+
+    public void showProgressBar(){
+        this.mProgressiveBar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressBar(){
+        this.mProgressiveBar.setVisibility(View.INVISIBLE);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.movie_posters_activity);
 
+        // Sets up the layout
+        this.mProgressiveBar = (ProgressBar) this.findViewById(R.id.pbLoading);
         this.setupMoviePosterList();
+
+        // Loads the data
+        this.loadMovieData();
     }
 
     /**
@@ -46,5 +67,16 @@ public class MoviePostersActivity extends AppCompatActivity {
 
         this.mMoviePostersAdapter = new MoviePostersListAdapter(MAX_MOVIE_POSTERS_COUNT);
         this.mMoviePosterList.setAdapter(this.mMoviePostersAdapter);
+    }
+
+    /**
+     * Starts the load data thread.
+     */
+    private void loadMovieData(){
+        // TODO create a error view to show in case the data load fails
+
+        // TODO create a method to load the query preferences (order, popularity, etc...)
+
+        new LoadMoviesTask(this).execute();
     }
 }
