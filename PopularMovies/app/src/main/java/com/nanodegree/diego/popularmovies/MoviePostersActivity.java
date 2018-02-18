@@ -2,6 +2,7 @@ package com.nanodegree.diego.popularmovies;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -69,8 +70,9 @@ public class MoviePostersActivity extends AppCompatActivity {
         this.mMoviePosterList = (RecyclerView) this.findViewById(R.id.rvMoviePosters);
 
         // will set the posters into a grid arrangement
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        this.mMoviePosterList.setLayoutManager(layoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,
+                3, LinearLayoutManager.VERTICAL, false);
+        this.mMoviePosterList.setLayoutManager(gridLayoutManager);
 
         this.mMoviePosterList.setHasFixedSize(true);
 
