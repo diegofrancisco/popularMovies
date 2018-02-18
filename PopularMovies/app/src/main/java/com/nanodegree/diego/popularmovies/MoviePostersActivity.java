@@ -21,7 +21,7 @@ public class MoviePostersActivity extends AppCompatActivity {
     /**
      * Request url for the Movie db API.
      */
-    public final static String MOVIE_DB_MOST_POPULAR_URL_REQUEST = String.format("https://api.themoviedb.org/3/movie/popular?api_key={0}",
+    public final static String MOVIE_DB_MOST_POPULAR_URL_REQUEST = String.format("https://api.themoviedb.org/3/movie/popular?api_key=%s",
             ConstantKeys.MOVIE_DB_API_KEY);
 
     /**
