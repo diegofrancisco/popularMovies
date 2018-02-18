@@ -14,6 +14,13 @@ import com.squareup.picasso.Picasso;
 public class MoviePostersListAdapter extends RecyclerView.Adapter<MoviePostersListAdapter.PosterViewHolder> {
 
     /**
+     * Interface that implements a poster click.
+     */
+    public interface MoviePosterClickListener{
+        void onClick(MovieInfo movieInfo);
+    }
+
+    /**
      * Keeps a array containing each movie information.
      */
     private MovieInfo[] movieInfoArray;
@@ -23,9 +30,18 @@ public class MoviePostersListAdapter extends RecyclerView.Adapter<MoviePostersLi
     }
 
     /**
-     * Public constructor.
+     * Keeps a reference to the poster click handler.
      */
-    public MoviePostersListAdapter(){    }
+    private MoviePosterClickListener mMoviePosterClickListener;
+
+    /**
+     * Public constructor.
+     * @param moviePosterClickListener
+     *  An implementation to handle a movie posters click.
+     */
+    public MoviePostersListAdapter(MoviePosterClickListener moviePosterClickListener) {
+        this.mMoviePosterClickListener = moviePosterClickListener;
+    }
 
     @Override
     public PosterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,8 +68,10 @@ public class MoviePostersListAdapter extends RecyclerView.Adapter<MoviePostersLi
         else return 0;
     }
 
-
-    public class PosterViewHolder extends RecyclerView.ViewHolder{
+    /**
+     * Custumized ViewHolder class.
+     */
+    public class PosterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public final ImageView mPosterConteiner;
         public Context mContext;
 
@@ -61,6 +79,14 @@ public class MoviePostersListAdapter extends RecyclerView.Adapter<MoviePostersLi
             super(itemView);
             this.mPosterConteiner = (ImageView) itemView.findViewById(R.id.ivPosterContainer);
             this.mContext = itemView.getContext();
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(mMoviePosterClickListener != null){
+                mMoviePosterClickListener.onClick(movieInfoArray[getAdapterPosition()]);
+            }
         }
     }
 }

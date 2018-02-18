@@ -11,12 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nanodegree.diego.popularmovies.adapter.MoviePostersListAdapter;
 import com.nanodegree.diego.popularmovies.keys.ConstantKeys;
 import com.nanodegree.diego.popularmovies.tasks.LoadMoviesTask;
 
-public class MoviePostersActivity extends AppCompatActivity {
+public class MoviePostersActivity extends AppCompatActivity implements MoviePostersListAdapter.MoviePosterClickListener {
 
     /**
      * Request url for the Movie db API.
@@ -112,7 +113,7 @@ public class MoviePostersActivity extends AppCompatActivity {
 
         this.mMoviePosterList.setHasFixedSize(true);
 
-        this.mMoviePostersAdapter = new MoviePostersListAdapter();
+        this.mMoviePostersAdapter = new MoviePostersListAdapter(this);
         this.mMoviePosterList.setAdapter(this.mMoviePostersAdapter);
     }
 
@@ -158,5 +159,10 @@ public class MoviePostersActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(MovieInfo movieInfo) {
+        Toast.makeText(this, movieInfo.getMovieTitle(), Toast.LENGTH_SHORT).show();
     }
 }
