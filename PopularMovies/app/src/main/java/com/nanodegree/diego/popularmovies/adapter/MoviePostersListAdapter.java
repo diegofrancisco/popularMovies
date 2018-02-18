@@ -1,32 +1,34 @@
 package com.nanodegree.diego.popularmovies.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.nanodegree.diego.popularmovies.MovieInfo;
 import com.nanodegree.diego.popularmovies.R;
+import com.squareup.picasso.Picasso;
 
-public class MoviePostersListAdapter extends RecyclerView.Adapter {
+public class MoviePostersListAdapter extends RecyclerView.Adapter<MoviePostersListAdapter.PosterViewHolder> {
 
     /**
-     * Reference to the max number of posters shown into the list.
-     * TODO Why do i need this?
+     * Keeps a array containing each movie information.
      */
-    private final int mMaxListSize;
+    private MovieInfo[] movieInfoArray;
+    public void setMovieInfoArray(MovieInfo[] movieInfoArray) {
+        this.movieInfoArray = movieInfoArray;
+        this.notifyDataSetChanged();
+    }
 
     /**
      * Public constructor.
-     * @param maxListSize
-     *  The max number of posters shown into the list.
      */
-    public MoviePostersListAdapter(int maxListSize){
-        this.mMaxListSize = maxListSize;
-    }
+    public MoviePostersListAdapter(){    }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PosterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
         View view = layoutInflater.inflate(R.layout.movie_poster_item, parent, false);
@@ -37,22 +39,28 @@ public class MoviePostersListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        // TODO sets data
+    public void onBindViewHolder(PosterViewHolder holder, int position) {
+        if(this.movieInfoArray != null && this.movieInfoArray.length > position) {
+            Picasso.with(holder.mContext).load(
+                    this.movieInfoArray[position].getMoviePosterPath()).into(holder.mPosterConteiner);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        if(this.movieInfoArray != null) return this.movieInfoArray.length;
+        else return 0;
     }
 
 
     public class PosterViewHolder extends RecyclerView.ViewHolder{
         public final ImageView mPosterConteiner;
+        public Context mContext;
 
         public PosterViewHolder(View itemView) {
             super(itemView);
             this.mPosterConteiner = (ImageView) itemView.findViewById(R.id.ivPosterContainer);
+            this.mContext = itemView.getContext();
         }
     }
 }

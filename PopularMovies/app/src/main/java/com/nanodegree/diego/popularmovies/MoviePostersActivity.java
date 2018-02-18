@@ -14,11 +14,6 @@ import com.nanodegree.diego.popularmovies.tasks.LoadMoviesTask;
 public class MoviePostersActivity extends AppCompatActivity {
 
     /**
-     * The max number of posters shown into the list.
-     */
-    public final static int MAX_MOVIE_POSTERS_COUNT = 20;
-
-    /**
      * Request url for the Movie db API.
      */
     public final static String MOVIE_DB_MOST_POPULAR_URL_REQUEST = String.format("https://api.themoviedb.org/3/movie/popular?api_key=%s",
@@ -40,11 +35,10 @@ public class MoviePostersActivity extends AppCompatActivity {
     private ProgressBar mProgressiveBar;
 
     /**
-     * Keeps a array containing each movie information.
+     * Sets the adapter array containing each movie information.
      */
-    private MovieInfo[] movieInfoArray;
     public void setMovieInfoArray(MovieInfo[] movieInfoArray) {
-        this.movieInfoArray = movieInfoArray;
+        this.mMoviePostersAdapter.setMovieInfoArray(movieInfoArray);
     }
 
     public void showProgressBar(){
@@ -75,12 +69,12 @@ public class MoviePostersActivity extends AppCompatActivity {
         this.mMoviePosterList = (RecyclerView) this.findViewById(R.id.rvMoviePosters);
 
         // will set the posters into a grid arrangement
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         this.mMoviePosterList.setLayoutManager(layoutManager);
 
         this.mMoviePosterList.setHasFixedSize(true);
 
-        this.mMoviePostersAdapter = new MoviePostersListAdapter(MAX_MOVIE_POSTERS_COUNT);
+        this.mMoviePostersAdapter = new MoviePostersListAdapter();
         this.mMoviePosterList.setAdapter(this.mMoviePostersAdapter);
     }
 

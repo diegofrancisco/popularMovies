@@ -25,14 +25,14 @@ import java.net.URLConnection;
 import java.util.Scanner;
 
 
-public class LoadMoviesTask extends AsyncTask<String, Void, ImageView[]> {
+public class LoadMoviesTask extends AsyncTask<String, Void, MovieInfo[]> {
 
     private final static String MOVIE_DB_JSON_RESULTS = "results";
     private final static String MOVIE_DB_JSON_TITLE = "title";
     private final static String MOVIE_DB_JSON_DESCRIPTION = "overview";
     private final static String MOVIE_DB_JSON_POSTER_PATH = "poster_path";
 
-    private final static String MOVIE_DB_POSTER_BASE_PATH = "https://image.tmdb.org/t/p/w154";
+    private final static String MOVIE_DB_POSTER_BASE_PATH = "https://image.tmdb.org/t/p/w185";
 
     /**
      * Reference to the movie poster activity.
@@ -55,10 +55,10 @@ public class LoadMoviesTask extends AsyncTask<String, Void, ImageView[]> {
     }
 
     @Override
-    protected ImageView[] doInBackground(String... params) {
+    protected MovieInfo[] doInBackground(String... params) {
         URL url;
         String httpResponse;
-        MovieInfo[] movieInfoArray;
+        MovieInfo[] movieInfoArray = null;
 
         if(!TextUtils.isEmpty(params[0])){
             url = this.buildURL(params[0]);
@@ -67,19 +67,19 @@ public class LoadMoviesTask extends AsyncTask<String, Void, ImageView[]> {
                 httpResponse = this.getHttpResponse(url);
 
                 movieInfoArray = this.parseMovieDbJSON(httpResponse);
-                this.mParent.setMovieInfoArray(movieInfoArray);
-
             }
         }
 
-        return new ImageView[0];
+        return movieInfoArray;
     }
 
     @Override
-    protected void onPostExecute(ImageView[] imageViews) {
+    protected void onPostExecute(MovieInfo[] movieInfoArray) {
         this.mParent.hideProgressBar();
 
-        super.onPostExecute(imageViews);
+        this.mParent.setMovieInfoArray(movieInfoArray);
+
+        super.onPostExecute(movieInfoArray);
     }
 
     /**
