@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Popular Movies</string>
+    <string name="popularMoviesTitle">Popular Movies</string>
+    <string name="topRatedMoviesTitle">Top Rated Movies</string>
+    <string name="error_loading_message">It was not possible to load the movie data =(</string>
+    <string name="menuRefresh">Refresh</string>
+    <string name="menuOrderByTopRated"> Order By Top Rated </string>
+    <string name="menuOrderByPopularity"> Order By Popularity </string>
 </resources>

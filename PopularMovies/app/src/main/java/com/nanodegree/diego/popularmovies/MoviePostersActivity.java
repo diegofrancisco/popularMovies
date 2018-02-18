@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.nanodegree.diego.popularmovies.adapter.MoviePostersListAdapter;
 import com.nanodegree.diego.popularmovies.keys.ConstantKeys;
@@ -19,6 +23,16 @@ public class MoviePostersActivity extends AppCompatActivity {
      */
     public final static String MOVIE_DB_MOST_POPULAR_URL_REQUEST = String.format("https://api.themoviedb.org/3/movie/popular?api_key=%s",
             ConstantKeys.MOVIE_DB_API_KEY);
+    public final static String MOVIE_DB_TOP_RATED_URL_REQUEST = String.format("https://api.themoviedb.org/3/movie/top_rated?api_key=%s",
+            ConstantKeys.MOVIE_DB_API_KEY);
+
+    /**
+     * Current movie order.
+     */
+    public enum MovieOrder{
+        POPULARITY,
+        TOP_RATED
+    }
 
     /**
      * RecyclerView reference.
@@ -36,6 +50,16 @@ public class MoviePostersActivity extends AppCompatActivity {
     private ProgressBar mProgressiveBar;
 
     /**
+     * Error TextView reference.
+     */
+    private TextView mErrorTextView;
+
+    /**
+     * Keeps a reference to the current movie order.
+     */
+    private MovieOrder mMovieOrder = MovieOrder.POPULARITY;
+
+    /**
      * Sets the adapter array containing each movie information.
      */
     public void setMovieInfoArray(MovieInfo[] movieInfoArray) {
@@ -44,10 +68,20 @@ public class MoviePostersActivity extends AppCompatActivity {
 
     public void showProgressBar(){
         this.mProgressiveBar.setVisibility(View.VISIBLE);
+        this.mErrorTextView.setVisibility(View.INVISIBLE);
+        this.mMoviePosterList.setVisibility(View.INVISIBLE);
     }
 
-    public void hideProgressBar(){
+    public void showPosterList(){
         this.mProgressiveBar.setVisibility(View.INVISIBLE);
+        this.mErrorTextView.setVisibility(View.INVISIBLE);
+        this.mMoviePosterList.setVisibility(View.VISIBLE);
+    }
+
+    public void showErrorView(){
+        this.mProgressiveBar.setVisibility(View.INVISIBLE);
+        this.mErrorTextView.setVisibility(View.VISIBLE);
+        this.mMoviePosterList.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -57,6 +91,8 @@ public class MoviePostersActivity extends AppCompatActivity {
 
         // Sets up the layout
         this.mProgressiveBar = (ProgressBar) this.findViewById(R.id.pbLoading);
+        this.mErrorTextView = (TextView) this.findViewById(R.id.tvErrorLoadingData);
+
         this.setupMoviePosterList();
 
         // Loads the data
@@ -84,10 +120,43 @@ public class MoviePostersActivity extends AppCompatActivity {
      * Starts the load data thread.
      */
     private void loadMovieData(){
-        // TODO create a error view to show in case the data load fails
+        if(this.mMovieOrder == MovieOrder.POPULARITY) {
+            new LoadMoviesTask(this).execute(MOVIE_DB_MOST_POPULAR_URL_REQUEST);
+        }else if (this.mMovieOrder == MovieOrder.TOP_RATED){
+            new LoadMoviesTask(this).execute(MOVIE_DB_TOP_RATED_URL_REQUEST);
+        }
+    }
 
-        // TODO create a method to load the query preferences (order, popularity, etc...)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.movie_poster_menu, menu);
 
-        new LoadMoviesTask(this).execute(MOVIE_DB_MOST_POPULAR_URL_REQUEST);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.refreshMovies){
+            this.mMoviePostersAdapter.setMovieInfoArray(null);
+            this.loadMovieData();
+            return true;
+        }
+        else if(item.getItemId() == R.id.menuOrder){
+            if(this.mMovieOrder == MovieOrder.POPULARITY){
+                item.setTitle(this.getString(R.string.menuOrderByPopularity));
+                this.mMovieOrder = MovieOrder.TOP_RATED;
+                this.setTitle(R.string.topRatedMoviesTitle);
+            }else if(this.mMovieOrder == MovieOrder.TOP_RATED) {
+                item.setTitle(this.getString(R.string.menuOrderByTopRated));
+                this.mMovieOrder = MovieOrder.POPULARITY;
+                this.setTitle(R.string.popularMoviesTitle);
+            }
+            this.mMoviePostersAdapter.setMovieInfoArray(null);
+            this.loadMovieData();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

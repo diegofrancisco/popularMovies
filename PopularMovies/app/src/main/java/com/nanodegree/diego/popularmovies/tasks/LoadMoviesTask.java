@@ -65,8 +65,9 @@ public class LoadMoviesTask extends AsyncTask<String, Void, MovieInfo[]> {
 
             if(url != null) {
                 httpResponse = this.getHttpResponse(url);
-
-                movieInfoArray = this.parseMovieDbJSON(httpResponse);
+                if(httpResponse != null) {
+                    movieInfoArray = this.parseMovieDbJSON(httpResponse);
+                }
             }
         }
 
@@ -75,9 +76,12 @@ public class LoadMoviesTask extends AsyncTask<String, Void, MovieInfo[]> {
 
     @Override
     protected void onPostExecute(MovieInfo[] movieInfoArray) {
-        this.mParent.hideProgressBar();
-
-        this.mParent.setMovieInfoArray(movieInfoArray);
+        if(movieInfoArray != null) {
+            this.mParent.setMovieInfoArray(movieInfoArray);
+            this.mParent.showPosterList();
+        }else {
+            this.mParent.showErrorView();
+        }
 
         super.onPostExecute(movieInfoArray);
     }
