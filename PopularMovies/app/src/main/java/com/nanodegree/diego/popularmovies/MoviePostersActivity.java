@@ -39,6 +39,14 @@ public class MoviePostersActivity extends AppCompatActivity {
      */
     private ProgressBar mProgressiveBar;
 
+    /**
+     * Keeps a array containing each movie information.
+     */
+    private MovieInfo[] movieInfoArray;
+    public void setMovieInfoArray(MovieInfo[] movieInfoArray) {
+        this.movieInfoArray = movieInfoArray;
+    }
+
     public void showProgressBar(){
         this.mProgressiveBar.setVisibility(View.VISIBLE);
     }
