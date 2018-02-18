@@ -1,5 +1,6 @@
 package com.nanodegree.diego.popularmovies;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -163,6 +164,8 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
 
     @Override
     public void onClick(MovieInfo movieInfo) {
-        Toast.makeText(this, movieInfo.getMovieTitle(), Toast.LENGTH_SHORT).show();
+        Intent movieDetailsIntent = new Intent(this, MovieDetailsActivity.class);
+        movieDetailsIntent.putExtra(MovieDetailsActivity.MOVIE_JSON_STRING_EXTRA, movieInfo.getOriginalJSONInfo());
+        this.startActivity(movieDetailsIntent);
     }
 }
