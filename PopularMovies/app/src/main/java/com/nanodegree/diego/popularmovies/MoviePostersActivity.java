@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nanodegree.diego.popularmovies.adapter.MoviePostersListAdapter;
 import com.nanodegree.diego.popularmovies.keys.ConstantKeys;
@@ -97,6 +96,8 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
 
         this.setupMoviePosterList();
 
+        this.setTitle(R.string.topPopularMoviesTitle);
+
         // Loads the data
         this.loadMovieData();
     }
@@ -152,7 +153,7 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
             }else if(this.mMovieOrder == MovieOrder.TOP_RATED) {
                 item.setTitle(this.getString(R.string.menuOrderByTopRated));
                 this.mMovieOrder = MovieOrder.POPULARITY;
-                this.setTitle(R.string.popularMoviesTitle);
+                this.setTitle(R.string.topPopularMoviesTitle);
             }
             this.mMoviePostersAdapter.setMovieInfoArray(null);
             this.loadMovieData();

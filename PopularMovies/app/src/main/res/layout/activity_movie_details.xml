@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,23 +8,52 @@
     <ImageView
         android:id="@+id/ivPoster"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:padding="@dimen/movie_details_item_padding"
+    />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/movieTitleContainer"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivPoster"
+        android:padding="@dimen/movie_details_item_padding">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/movieTitle"
-            android:textSize="12sp"
+            android:textSize="@dimen/movie_details_text_size"
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/tvMovieTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/movieTitle"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/movie_details_text_size"/>
     </LinearLayout>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/movieDescriptionContainer"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivPoster"
+        android:layout_below="@id/movieTitleContainer"
+        android:padding="@dimen/movie_details_item_padding">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movieSynopsis"
+            android:textSize="@dimen/movie_details_text_size"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tvMovieSynopsis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movieTitle"
+            android:textSize="@dimen/movie_details_text_size"/>
+    </LinearLayout>
+</RelativeLayout>

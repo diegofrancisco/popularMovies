@@ -26,9 +26,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
     ImageView mPosterContainer;
 
     /**
-     * TextView that shows the movie title;
+     * TextView that shows the movie title.
      */
     TextView mTitleTextView;
+
+    /**
+     * TextView that shows the movie synopsis.
+     */
+    TextView mSynopsisTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         this.mPosterContainer = (ImageView) this.findViewById(R.id.ivPoster);
         this.mTitleTextView = (TextView) this.findViewById(R.id.tvMovieTitle);
+        this.mSynopsisTextView = (TextView) this.findViewById(R.id.tvMovieSynopsis);
 
         Intent intent = this.getIntent();
         if(intent.hasExtra(MOVIE_JSON_STRING_EXTRA)){
@@ -52,6 +58,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
             if(movieInfo != null){
                 this.mTitleTextView.setText(movieInfo.getMovieTitle());
+                this.mSynopsisTextView.setText(movieInfo.getMovieDescription());
                 Picasso.with(this).load(movieInfo.getMoviePosterPath()).into(this.mPosterContainer);
             }
         }

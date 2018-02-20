@@ -2,7 +2,7 @@
     <string name="app_name">Popular Movies</string>
 
     <!-- MoviePostersActivity -->
-    <string name="popularMoviesTitle">Popular Movies</string>
+    <string name="topPopularMoviesTitle">Top Popular Movies</string>
     <string name="topRatedMoviesTitle">Top Rated Movies</string>
     <string name="error_loading_message">It was not possible to load the movie data =(</string>
     <string name="menuRefresh">Refresh</string>
@@ -11,4 +11,5 @@
 
     <!-- MovieDetailsActivity -->
     <string name="movieTitle">Movie Title:</string>
+    <string name="movieSynopsis">Synopsis:</string>
 </resources>
