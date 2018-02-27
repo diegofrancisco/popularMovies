@@ -1,14 +1,42 @@
 package com.nanodegree.diego.popularmovies;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * This class keeps all the information for a single movie.
  */
-public class MovieInfo {
+public class MovieInfo implements Parcelable {
 
     /**
      * Constructor.
      */
     public MovieInfo(){    }
+
+    /**
+     * Constructor.
+     */
+    protected MovieInfo(Parcel in) {
+        originalJSONInfo = in.readString();
+        movieTitle = in.readString();
+        movieDescription = in.readString();
+        moviePosterPath = in.readString();
+    }
+
+    /**
+     * Parcelable CREATOR field.
+     */
+    public static final Creator<MovieInfo> CREATOR = new Creator<MovieInfo>() {
+        @Override
+        public MovieInfo createFromParcel(Parcel in) {
+            return new MovieInfo(in);
+        }
+
+        @Override
+        public MovieInfo[] newArray(int size) {
+            return new MovieInfo[size];
+        }
+    };
 
     /**
      * Keeps a reference to the full JSON information.
@@ -53,5 +81,18 @@ public class MovieInfo {
     }
     public void setMoviePosterPath(String moviePosterPath) {
         this.moviePosterPath = moviePosterPath;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(originalJSONInfo);
+        dest.writeString(movieTitle);
+        dest.writeString(movieDescription);
+        dest.writeString(moviePosterPath);
     }
 }
