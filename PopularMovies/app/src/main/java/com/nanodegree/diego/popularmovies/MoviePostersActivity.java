@@ -1,6 +1,7 @@
 package com.nanodegree.diego.popularmovies;
 
 import android.content.Intent;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -113,6 +114,31 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
         this.loadMovieData();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     /**
      * Sets up the movie posters list adapter and its properties.
      */
@@ -182,7 +208,7 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putString(SELECTED_LIST_ORDER_BUNDLE_STATE, this.mMovieOrder.toString());
+        super.onSaveInstanceState(outState);
     }
 }

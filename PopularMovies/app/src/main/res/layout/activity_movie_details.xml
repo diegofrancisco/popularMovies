@@ -31,7 +31,48 @@
             android:id="@+id/tvMovieTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/movieTitle"
+            android:textSize="@dimen/movie_details_text_size"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/movieReleaseDateContainer"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivPoster"
+        android:layout_below="@id/movieTitleContainer"
+        android:padding="@dimen/movie_details_item_padding">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movieReleaseDate"
+            android:textSize="@dimen/movie_details_text_size"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tvMovieDateRelease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/movie_details_text_size"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/movieVoteAverageContainer"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivPoster"
+        android:layout_below="@id/movieReleaseDateContainer"
+        android:padding="@dimen/movie_details_item_padding">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movieVoteAverage"
+            android:textSize="@dimen/movie_details_text_size"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tvMovieVoteAverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textSize="@dimen/movie_details_text_size"/>
     </LinearLayout>
 
@@ -41,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ivPoster"
-        android:layout_below="@id/movieTitleContainer"
+        android:layout_below="@id/movieVoteAverageContainer"
         android:padding="@dimen/movie_details_item_padding">
         <TextView
             android:layout_width="wrap_content"
@@ -53,7 +94,6 @@
             android:id="@+id/tvMovieSynopsis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/movieTitle"
             android:textSize="@dimen/movie_details_text_size"/>
     </LinearLayout>
 </RelativeLayout>

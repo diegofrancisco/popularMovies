@@ -14,6 +14,8 @@ public class JSONUtil {
     private final static String MOVIE_DB_JSON_TITLE = "title";
     private final static String MOVIE_DB_JSON_DESCRIPTION = "overview";
     private final static String MOVIE_DB_JSON_POSTER_PATH = "poster_path";
+    private final static String MOVIE_DB_JSON_VOTE_AVERAGE = "vote_average";
+    private final static String MOVIE_DB_JSON_RELEASE_DATE = "release_date";
 
     private final static String MOVIE_DB_POSTER_BASE_PATH = "https://image.tmdb.org/t/p/w185";
 
@@ -79,6 +81,16 @@ public class JSONUtil {
                 movieInfoItem.setMoviePosterPath(
                         Uri.parse(MOVIE_DB_POSTER_BASE_PATH).buildUpon().appendPath(
                                 movieItemJSON.getString(MOVIE_DB_JSON_POSTER_PATH).substring(1)).build().toString());
+            }
+
+            // Gets the movie vote average information
+            if (movieItemJSON.has(MOVIE_DB_JSON_VOTE_AVERAGE)) {
+                movieInfoItem.setMovieVoteAverage(movieItemJSON.getString(MOVIE_DB_JSON_VOTE_AVERAGE));
+            }
+
+            // Gets the movie release date information
+            if (movieItemJSON.has(MOVIE_DB_JSON_RELEASE_DATE)) {
+                movieInfoItem.setMovieReleaseDate(movieItemJSON.getString(MOVIE_DB_JSON_RELEASE_DATE));
             }
         }catch(JSONException ex){
             ex.printStackTrace();

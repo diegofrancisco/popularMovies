@@ -4,6 +4,7 @@
     <!-- MoviePostersActivity -->
     <string name="topPopularMoviesTitle">Top Popular Movies</string>
     <string name="topRatedMoviesTitle">Top Rated Movies</string>
+    <string name="movieDetailTitle">Movie Details</string>
     <string name="error_loading_message">It was not possible to load the movie data =(</string>
     <string name="menuRefresh">Refresh</string>
     <string name="menuOrderByTopRated"> Order By Top Rated </string>
@@ -12,4 +13,6 @@
     <!-- MovieDetailsActivity -->
     <string name="movieTitle">Movie Title:</string>
     <string name="movieSynopsis">Synopsis:</string>
+    <string name="movieReleaseDate">Release Date:</string>
+    <string name="movieVoteAverage">Vote Average:</string>
 </resources>

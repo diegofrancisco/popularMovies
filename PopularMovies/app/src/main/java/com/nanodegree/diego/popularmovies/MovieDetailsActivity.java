@@ -6,11 +6,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nanodegree.diego.popularmovies.util.JSONUtil;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
@@ -34,15 +30,28 @@ public class MovieDetailsActivity extends AppCompatActivity {
      */
     TextView mSynopsisTextView;
 
+    /**
+     * TextView that shows the movie release date.
+     */
+    TextView mReleaseDateTextView;
+
+    /**
+     * TextView that shows the movie vote average.
+     */
+    TextView mVoteAverageTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
+        this.setTitle(getString(R.string.movieDetailTitle));
         MovieInfo movieInfo;
 
         this.mPosterContainer = (ImageView) this.findViewById(R.id.ivPoster);
         this.mTitleTextView = (TextView) this.findViewById(R.id.tvMovieTitle);
         this.mSynopsisTextView = (TextView) this.findViewById(R.id.tvMovieSynopsis);
+        this.mVoteAverageTextView = (TextView) this.findViewById(R.id.tvMovieVoteAverage);
+        this.mReleaseDateTextView = (TextView) this.findViewById(R.id.tvMovieDateRelease);
 
         Intent intent = this.getIntent();
         if(intent.hasExtra(MOVIE_INFO_EXTRA)){
@@ -51,6 +60,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
             if(movieInfo != null){
                 this.mTitleTextView.setText(movieInfo.getMovieTitle());
                 this.mSynopsisTextView.setText(movieInfo.getMovieDescription());
+                this.mReleaseDateTextView.setText(movieInfo.getMovieReleaseDate());
+                this.mVoteAverageTextView.setText(movieInfo.getMovieVoteAverage());
                 Picasso.with(this).load(movieInfo.getMoviePosterPath()).into(this.mPosterContainer);
             }
         }

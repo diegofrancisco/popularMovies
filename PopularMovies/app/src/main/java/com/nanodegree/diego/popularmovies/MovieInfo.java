@@ -20,6 +20,8 @@ public class MovieInfo implements Parcelable {
         movieTitle = in.readString();
         movieDescription = in.readString();
         moviePosterPath = in.readString();
+        movieVoteAverage = in.readString();
+        movieReleaseDate = in.readString();
     }
 
     /**
@@ -71,6 +73,24 @@ public class MovieInfo implements Parcelable {
         this.moviePosterPath = moviePosterPath;
     }
 
+    /**
+     * Movie vote average.
+     */
+    private String movieVoteAverage;
+    public String getMovieVoteAverage() {  return movieVoteAverage;   }
+    public void setMovieVoteAverage(String movieVoteAverage) {
+        this.movieVoteAverage = movieVoteAverage;
+    }
+
+    /**
+     * Movie release date.
+     */
+    private String movieReleaseDate;
+    public String getMovieReleaseDate() {  return movieReleaseDate;   }
+    public void setMovieReleaseDate(String movieReleaseDate) {
+        this.movieReleaseDate = movieReleaseDate;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -81,5 +101,7 @@ public class MovieInfo implements Parcelable {
         dest.writeString(movieTitle);
         dest.writeString(movieDescription);
         dest.writeString(moviePosterPath);
+        dest.writeString(movieVoteAverage);
+        dest.writeString(movieReleaseDate);
     }
 }
