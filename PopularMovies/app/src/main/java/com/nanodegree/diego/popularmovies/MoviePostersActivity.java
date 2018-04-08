@@ -1,6 +1,8 @@
 package com.nanodegree.diego.popularmovies;
 
 import android.content.Intent;
+import android.os.PersistableBundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,9 +30,14 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
             ConstantKeys.MOVIE_DB_API_KEY);
 
     /**
+     * Previously selected list order.
+     */
+    public final static String SELECTED_LIST_ORDER_BUNDLE_STATE = "SELECTED_LIST_ORDER";
+
+    /**
      * Current movie order.
      */
-    public enum MovieOrder{
+    public enum MovieOrder {
         POPULARITY,
         TOP_RATED
     }
@@ -67,19 +74,19 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
         this.mMoviePostersAdapter.setMovieInfoArray(movieInfoArray);
     }
 
-    public void showProgressBar(){
+    public void showProgressBar() {
         this.mProgressiveBar.setVisibility(View.VISIBLE);
         this.mErrorTextView.setVisibility(View.INVISIBLE);
         this.mMoviePosterList.setVisibility(View.INVISIBLE);
     }
 
-    public void showPosterList(){
+    public void showPosterList() {
         this.mProgressiveBar.setVisibility(View.INVISIBLE);
         this.mErrorTextView.setVisibility(View.INVISIBLE);
         this.mMoviePosterList.setVisibility(View.VISIBLE);
     }
 
-    public void showErrorView(){
+    public void showErrorView() {
         this.mProgressiveBar.setVisibility(View.INVISIBLE);
         this.mErrorTextView.setVisibility(View.VISIBLE);
         this.mMoviePosterList.setVisibility(View.INVISIBLE);
@@ -96,7 +103,13 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
 
         this.setupMoviePosterList();
 
-        this.setTitle(R.string.topPopularMoviesTitle);
+        if(savedInstanceState != null &&
+                savedInstanceState.get(SELECTED_LIST_ORDER_BUNDLE_STATE) == MovieOrder.TOP_RATED.toString()){
+            this.setTitle(R.string.topRatedMoviesTitle);
+            this.mMovieOrder = MovieOrder.TOP_RATED;
+        }else {
+            this.setTitle(R.string.topPopularMoviesTitle);
+        }
 
         // Loads the data
         this.loadMovieData();
@@ -105,7 +118,7 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
     /**
      * Sets up the movie posters list adapter and its properties.
      */
-    private void setupMoviePosterList(){
+    private void setupMoviePosterList() {
         this.mMoviePosterList = (RecyclerView) this.findViewById(R.id.rvMoviePosters);
 
         // will set the posters into a grid arrangement
@@ -122,10 +135,10 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
     /**
      * Starts the load data thread.
      */
-    private void loadMovieData(){
-        if(this.mMovieOrder == MovieOrder.POPULARITY) {
+    private void loadMovieData() {
+        if (this.mMovieOrder == MovieOrder.POPULARITY) {
             new LoadMoviesTask(this).execute(MOVIE_DB_MOST_POPULAR_URL_REQUEST);
-        }else if (this.mMovieOrder == MovieOrder.TOP_RATED){
+        } else if (this.mMovieOrder == MovieOrder.TOP_RATED) {
             new LoadMoviesTask(this).execute(MOVIE_DB_TOP_RATED_URL_REQUEST);
         }
     }
@@ -140,17 +153,16 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.refreshMovies){
+        if (item.getItemId() == R.id.refreshMovies) {
             this.mMoviePostersAdapter.setMovieInfoArray(null);
             this.loadMovieData();
             return true;
-        }
-        else if(item.getItemId() == R.id.menuOrder){
-            if(this.mMovieOrder == MovieOrder.POPULARITY){
+        } else if (item.getItemId() == R.id.menuOrder) {
+            if (this.mMovieOrder == MovieOrder.POPULARITY) {
                 item.setTitle(this.getString(R.string.menuOrderByPopularity));
                 this.mMovieOrder = MovieOrder.TOP_RATED;
                 this.setTitle(R.string.topRatedMoviesTitle);
-            }else if(this.mMovieOrder == MovieOrder.TOP_RATED) {
+            } else if (this.mMovieOrder == MovieOrder.TOP_RATED) {
                 item.setTitle(this.getString(R.string.menuOrderByTopRated));
                 this.mMovieOrder = MovieOrder.POPULARITY;
                 this.setTitle(R.string.topPopularMoviesTitle);
@@ -168,5 +180,11 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
         Intent movieDetailsIntent = new Intent(this, MovieDetailsActivity.class);
         movieDetailsIntent.putExtra(MovieDetailsActivity.MOVIE_JSON_STRING_EXTRA, movieInfo.getOriginalJSONInfo());
         this.startActivity(movieDetailsIntent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(SELECTED_LIST_ORDER_BUNDLE_STATE, this.mMovieOrder.toString());
     }
 }
