@@ -11,14 +11,13 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
     /**
      * Movie JSON string extra identifier.
      */
-    public static final String MOVIE_JSON_STRING_EXTRA = "JSON_STRING_EXTRA";
+    public static final String MOVIE_INFO_EXTRA = "MOVIE_INFO_EXTRA";
 
     /**
      * ImageView that contains the poster.
@@ -39,22 +38,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-
-        MovieInfo movieInfo = null;
+        MovieInfo movieInfo;
 
         this.mPosterContainer = (ImageView) this.findViewById(R.id.ivPoster);
         this.mTitleTextView = (TextView) this.findViewById(R.id.tvMovieTitle);
         this.mSynopsisTextView = (TextView) this.findViewById(R.id.tvMovieSynopsis);
 
         Intent intent = this.getIntent();
-        if(intent.hasExtra(MOVIE_JSON_STRING_EXTRA)){
-            String jSonString = intent.getStringExtra(MOVIE_JSON_STRING_EXTRA);
-
-            try {
-                movieInfo = JSONUtil.getSingleMovieInfo(new JSONObject(jSonString));
-            }catch(JSONException ex){
-                ex.printStackTrace();
-            }
+        if(intent.hasExtra(MOVIE_INFO_EXTRA)){
+            movieInfo = intent.getParcelableExtra(MOVIE_INFO_EXTRA);
 
             if(movieInfo != null){
                 this.mTitleTextView.setText(movieInfo.getMovieTitle());

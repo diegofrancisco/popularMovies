@@ -17,7 +17,6 @@ public class MovieInfo implements Parcelable {
      * Constructor.
      */
     protected MovieInfo(Parcel in) {
-        originalJSONInfo = in.readString();
         movieTitle = in.readString();
         movieDescription = in.readString();
         moviePosterPath = in.readString();
@@ -37,17 +36,6 @@ public class MovieInfo implements Parcelable {
             return new MovieInfo[size];
         }
     };
-
-    /**
-     * Keeps a reference to the full JSON information.
-     */
-    private String originalJSONInfo;
-    public String getOriginalJSONInfo() {
-        return originalJSONInfo;
-    }
-    public void setOriginalJSONInfo(String originalJSONInfo) {
-        this.originalJSONInfo = originalJSONInfo;
-    }
 
     /**
      * Movie title information.
@@ -90,7 +78,6 @@ public class MovieInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(originalJSONInfo);
         dest.writeString(movieTitle);
         dest.writeString(movieDescription);
         dest.writeString(moviePosterPath);

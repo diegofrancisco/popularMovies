@@ -80,9 +80,6 @@ public class JSONUtil {
                         Uri.parse(MOVIE_DB_POSTER_BASE_PATH).buildUpon().appendPath(
                                 movieItemJSON.getString(MOVIE_DB_JSON_POSTER_PATH).substring(1)).build().toString());
             }
-
-            // Backs up the JSON  Full Information
-            movieInfoItem.setOriginalJSONInfo(movieItemJSON.toString());
         }catch(JSONException ex){
             ex.printStackTrace();
         }
