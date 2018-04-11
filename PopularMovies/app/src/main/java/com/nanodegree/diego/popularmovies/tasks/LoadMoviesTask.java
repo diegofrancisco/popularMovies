@@ -1,28 +1,18 @@
 package com.nanodegree.diego.popularmovies.tasks;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.nanodegree.diego.popularmovies.MovieInfo;
 import com.nanodegree.diego.popularmovies.MoviePostersActivity;
-import com.nanodegree.diego.popularmovies.adapter.MoviePostersListAdapter;
 import com.nanodegree.diego.popularmovies.util.JSONUtil;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Scanner;
 
 
@@ -31,7 +21,7 @@ public class LoadMoviesTask extends AsyncTask<String, Void, MovieInfo[]> {
     /**
      * Reference to the movie poster activity.
      */
-    private final MoviePostersActivity mParent;
+    private MoviePostersActivity mParent;
 
     /**
      * Public constructor.

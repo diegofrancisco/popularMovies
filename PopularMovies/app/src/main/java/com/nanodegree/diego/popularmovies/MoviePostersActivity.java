@@ -1,8 +1,8 @@
 package com.nanodegree.diego.popularmovies;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,15 +22,15 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
     /**
      * Request url for the Movie db API.
      */
-    public final static String MOVIE_DB_MOST_POPULAR_URL_REQUEST = String.format("https://api.themoviedb.org/3/movie/popular?api_key=%s",
+    private final static String MOVIE_DB_MOST_POPULAR_URL_REQUEST = String.format("https://api.themoviedb.org/3/movie/popular?api_key=%s",
             ConstantKeys.MOVIE_DB_API_KEY);
-    public final static String MOVIE_DB_TOP_RATED_URL_REQUEST = String.format("https://api.themoviedb.org/3/movie/top_rated?api_key=%s",
+    private final static String MOVIE_DB_TOP_RATED_URL_REQUEST = String.format("https://api.themoviedb.org/3/movie/top_rated?api_key=%s",
             ConstantKeys.MOVIE_DB_API_KEY);
 
     /**
      * Previously selected list order.
      */
-    public final static String SELECTED_LIST_ORDER_BUNDLE_STATE = "SELECTED_LIST_ORDER";
+    private final static String SELECTED_LIST_ORDER_BUNDLE_STATE = "SELECTED_LIST_ORDER";
 
     /**
      * Current movie order.

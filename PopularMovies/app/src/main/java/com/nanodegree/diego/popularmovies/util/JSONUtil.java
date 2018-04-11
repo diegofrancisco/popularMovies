@@ -20,49 +20,13 @@ public class JSONUtil {
     private final static String MOVIE_DB_POSTER_BASE_PATH = "https://image.tmdb.org/t/p/w185";
 
     /**
-     * Parses the JSON string result from the Movie API.
-     * @param json
-     *  JSON string.
-     * @return
-     *  MovieInfo array containing all movies informations.
-     */
-    public static MovieInfo[] parseMovieDbJSON(String json){
-        MovieInfo[] movieInfoArray = null;
-        JSONObject rootJSON;
-        JSONArray movies;
-        JSONObject movieItemJSON;
-
-        try {
-            rootJSON = new JSONObject(json);
-            if(rootJSON.has(MOVIE_DB_JSON_RESULTS)) {
-                movies = rootJSON.getJSONArray(MOVIE_DB_JSON_RESULTS);
-
-                if(movies != null && movies.length() > 0){
-                    movieInfoArray = new MovieInfo[movies.length()];
-
-                    for(int i = 0; i < movies.length(); i++){
-                        movieItemJSON = movies.getJSONObject(i);
-
-                        // Apends to the result array
-                        movieInfoArray[i] = JSONUtil.getSingleMovieInfo(movieItemJSON);
-                    }
-                }
-            }
-        }catch(JSONException ex){
-            ex.printStackTrace();
-        }
-
-        return movieInfoArray;
-    }
-
-    /**
      * Parses the JSON of a single movie information.
      * @param movieItemJSON
      *  JSON Object
      * @return
      * MovieInfo instance containing the movie information.
      */
-    public static MovieInfo getSingleMovieInfo(JSONObject movieItemJSON){
+    private static MovieInfo getSingleMovieInfo(JSONObject movieItemJSON){
         MovieInfo movieInfoItem = new MovieInfo();
 
         try {
@@ -97,5 +61,41 @@ public class JSONUtil {
         }
 
         return movieInfoItem;
+    }
+
+    /**
+     * Parses the JSON string result from the Movie API.
+     * @param json
+     *  JSON string.
+     * @return
+     *  MovieInfo array containing all movies informations.
+     */
+    public static MovieInfo[] parseMovieDbJSON(String json){
+        MovieInfo[] movieInfoArray = null;
+        JSONObject rootJSON;
+        JSONArray movies;
+        JSONObject movieItemJSON;
+
+        try {
+            rootJSON = new JSONObject(json);
+            if(rootJSON.has(MOVIE_DB_JSON_RESULTS)) {
+                movies = rootJSON.getJSONArray(MOVIE_DB_JSON_RESULTS);
+
+                if(movies != null && movies.length() > 0){
+                    movieInfoArray = new MovieInfo[movies.length()];
+
+                    for(int i = 0; i < movies.length(); i++){
+                        movieItemJSON = movies.getJSONObject(i);
+
+                        // Apends to the result array
+                        movieInfoArray[i] = JSONUtil.getSingleMovieInfo(movieItemJSON);
+                    }
+                }
+            }
+        }catch(JSONException ex){
+            ex.printStackTrace();
+        }
+
+        return movieInfoArray;
     }
 }

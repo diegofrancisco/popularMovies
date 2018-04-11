@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:padding="@dimen/movie_details_item_padding"
-    />
+        android:layout_alignParentStart="true" />
 
     <LinearLayout
         android:id="@+id/movieTitleContainer"
@@ -20,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ivPoster"
-        android:padding="@dimen/movie_details_item_padding">
+        android:padding="@dimen/movie_details_item_padding"
+        android:layout_toEndOf="@id/ivPoster">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ivPoster"
         android:layout_below="@id/movieTitleContainer"
-        android:padding="@dimen/movie_details_item_padding">
+        android:padding="@dimen/movie_details_item_padding"
+        android:layout_toEndOf="@id/ivPoster">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ivPoster"
         android:layout_below="@id/movieReleaseDateContainer"
-        android:padding="@dimen/movie_details_item_padding">
+        android:padding="@dimen/movie_details_item_padding"
+        android:layout_toEndOf="@id/ivPoster">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +86,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ivPoster"
         android:layout_below="@id/movieVoteAverageContainer"
-        android:padding="@dimen/movie_details_item_padding">
+        android:padding="@dimen/movie_details_item_padding"
+        android:layout_toEndOf="@id/ivPoster">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

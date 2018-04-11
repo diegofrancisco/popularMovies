@@ -18,27 +18,27 @@ public class MovieDetailsActivity extends AppCompatActivity {
     /**
      * ImageView that contains the poster.
      */
-    ImageView mPosterContainer;
+    private ImageView mPosterContainer;
 
     /**
      * TextView that shows the movie title.
      */
-    TextView mTitleTextView;
+    private TextView mTitleTextView;
 
     /**
      * TextView that shows the movie synopsis.
      */
-    TextView mSynopsisTextView;
+    private TextView mSynopsisTextView;
 
     /**
      * TextView that shows the movie release date.
      */
-    TextView mReleaseDateTextView;
+    private TextView mReleaseDateTextView;
 
     /**
      * TextView that shows the movie vote average.
      */
-    TextView mVoteAverageTextView;
+    private TextView mVoteAverageTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

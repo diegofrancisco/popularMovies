@@ -32,7 +32,7 @@ public class MoviePostersListAdapter extends RecyclerView.Adapter<MoviePostersLi
     /**
      * Keeps a reference to the poster click handler.
      */
-    private MoviePosterClickListener mMoviePosterClickListener;
+    private final MoviePosterClickListener mMoviePosterClickListener;
 
     /**
      * Public constructor.
@@ -49,9 +49,7 @@ public class MoviePostersListAdapter extends RecyclerView.Adapter<MoviePostersLi
 
         View view = layoutInflater.inflate(R.layout.movie_poster_item, parent, false);
 
-        PosterViewHolder posterViewHolder = new PosterViewHolder(view);
-
-        return posterViewHolder;
+        return new PosterViewHolder(view);
     }
 
     @Override
@@ -72,10 +70,10 @@ public class MoviePostersListAdapter extends RecyclerView.Adapter<MoviePostersLi
      * Custumized ViewHolder class.
      */
     public class PosterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public final ImageView mPosterConteiner;
-        public Context mContext;
+        final ImageView mPosterConteiner;
+        final Context mContext;
 
-        public PosterViewHolder(View itemView) {
+        PosterViewHolder(View itemView) {
             super(itemView);
             this.mPosterConteiner = (ImageView) itemView.findViewById(R.id.ivPosterContainer);
             this.mContext = itemView.getContext();

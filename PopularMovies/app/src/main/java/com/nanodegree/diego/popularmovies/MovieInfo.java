@@ -16,7 +16,7 @@ public class MovieInfo implements Parcelable {
     /**
      * Constructor.
      */
-    protected MovieInfo(Parcel in) {
+    private MovieInfo(Parcel in) {
         movieTitle = in.readString();
         movieDescription = in.readString();
         moviePosterPath = in.readString();
