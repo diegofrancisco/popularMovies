@@ -1,6 +1,9 @@
 package com.nanodegree.diego.popularmovies;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -134,10 +137,21 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
      * Starts the load data thread.
      */
     private void loadMovieData() {
-        if (this.mMovieOrder == MovieOrder.POPULARITY) {
-            new LoadMoviesTask(this).execute(MOVIE_DB_MOST_POPULAR_URL_REQUEST);
-        } else if (this.mMovieOrder == MovieOrder.TOP_RATED) {
-            new LoadMoviesTask(this).execute(MOVIE_DB_TOP_RATED_URL_REQUEST);
+        // Local variables
+        NetworkInfo networkInfo;
+        ConnectivityManager connectivityMgr =
+                (ConnectivityManager)this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        networkInfo = connectivityMgr.getActiveNetworkInfo();
+
+        if(networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+            if (this.mMovieOrder == MovieOrder.POPULARITY) {
+                new LoadMoviesTask(this).execute(MOVIE_DB_MOST_POPULAR_URL_REQUEST);
+            } else if (this.mMovieOrder == MovieOrder.TOP_RATED) {
+                new LoadMoviesTask(this).execute(MOVIE_DB_TOP_RATED_URL_REQUEST);
+            }
+        }else{
+            this.showErrorView();
         }
     }
 
